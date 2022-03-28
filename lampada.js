@@ -1,20 +1,27 @@
-const turnOn = document.getElementById('turnOn');
-const turnOff = document.getElementById('turnOff');
+const interruptor = document.getElementById('interruptor');
 const lampada = document.getElementById('lamp');
 
 function lampadaEstaQuebrada() {
     return lampada.src.indexOf('quebrada') > -1;
 }
 
-function estadoOn() {
-    if (!lampadaEstaQuebrada()) {
-        lampada.src = './img/ligada.jpg';
-    }
+function lampadaEstaDesligada() {
+    return lampada.src.indexOf('desligada') > -1;
 }
 
-function estadoOff() {
+function estado() {
+
     if (!lampadaEstaQuebrada()) {
-        lampada.src = './img/desligada.jpg';
+
+        if (lampadaEstaDesligada()) {
+            //            alert('ligada');
+            lampada.src = './img/ligada.jpg';
+            interruptor.textContent = 'Desligar';
+        } else {
+            //            alert('desligada');
+            lampada.src = './img/desligada.jpg';
+            interruptor.textContent = 'Ligar';
+        }
     }
 }
 
@@ -22,9 +29,8 @@ function estadoBreak() {
     lampada.src = './img/quebrada.jpg';
 }
 
-turnOn.addEventListener('click', estadoOn);
-turnOff.addEventListener('click', estadoOff);
-lampada.addEventListener('mouseover', estadoOn);
-lampada.addEventListener('mouseleave', estadoOff);
+interruptor.addEventListener('click', estado);
+lampada.addEventListener('mouseover', estado);
+lampada.addEventListener('mouseleave', estado);
 
 lampada.addEventListener('dblclick', estadoBreak)
